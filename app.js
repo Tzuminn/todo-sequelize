@@ -18,7 +18,12 @@ app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 
 app.get('/', (req, res) => {
-  res.send('123')
+  return Todo.findAll({        // 查詢多筆資料
+    raw: true,                 // 用raw和nest將多筆資料轉成JS物件
+    nest: true
+  })
+    .then((todos) => { return res.render('index', { todos: todos }) })
+    .catch((error) => { return res.status(422).json(error) })
 })
 
 app.get('/users/login', (req, res) => {
