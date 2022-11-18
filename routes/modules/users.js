@@ -49,7 +49,7 @@ router.post('/register', (req, res) => {
   }
 
   // 驗證是否有重複註冊
-  User.findOne({ email }).then(user => {
+  User.findOne({ where: { email } }).then(user => {
     // 已註冊過
     if (user) {
       errors.push({ message: '這個 Email 已經註冊過了。' })
